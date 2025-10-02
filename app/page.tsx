@@ -1,103 +1,159 @@
-import Image from "next/image";
+'use client'
+
+import { useEffect, useRef, useState, useCallback } from 'react'
+import Navigation from '@/components/Navigation'
+import Hero from '@/components/sections/Hero'
+import Section2 from '@/components/sections/Section2'
+import Section3 from '@/components/sections/Section3'
+import Section4 from '@/components/sections/Section4'
+import Section5 from '@/components/sections/Section5'
+import Section6 from '@/components/sections/Section6'
+import Section7 from '@/components/sections/Section7'
+import Section8 from '@/components/sections/Section8'
+import Section9 from '@/components/sections/Section9'
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [currentSection, setCurrentSection] = useState(0)
+  const [isScrolling, setIsScrolling] = useState(false)
+  const sectionsRef = useRef<HTMLDivElement[]>([])
+  const totalSections = 9
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // Smooth scroll to section
+  const scrollToSection = useCallback((index: number) => {
+    if (index >= 0 && index < totalSections && !isScrolling) {
+      setIsScrolling(true)
+      sectionsRef.current[index]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
+
+      setTimeout(() => {
+        setCurrentSection(index)
+        setIsScrolling(false)
+      }, 600)
+    }
+  }, [isScrolling, totalSections])
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown' || e.key === ' ') {
+        e.preventDefault()
+        scrollToSection(currentSection + 1)
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        scrollToSection(currentSection - 1)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [currentSection, isScrolling, scrollToSection])
+
+  // Wheel/touch navigation
+  useEffect(() => {
+    let touchStartY = 0
+    let lastWheelTime = 0
+
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      const now = Date.now()
+
+      // Throttle wheel events
+      if (now - lastWheelTime < 1000 || isScrolling) return
+
+      lastWheelTime = now
+
+      if (e.deltaY > 0) {
+        scrollToSection(currentSection + 1)
+      } else if (e.deltaY < 0) {
+        scrollToSection(currentSection - 1)
+      }
+    }
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY
+    }
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      const touchEndY = e.changedTouches[0].clientY
+      const diff = touchStartY - touchEndY
+
+      if (Math.abs(diff) > 50 && !isScrolling) {
+        if (diff > 0) {
+          scrollToSection(currentSection + 1)
+        } else {
+          scrollToSection(currentSection - 1)
+        }
+      }
+    }
+
+    window.addEventListener('wheel', handleWheel, { passive: false })
+    window.addEventListener('touchstart', handleTouchStart)
+    window.addEventListener('touchend', handleTouchEnd)
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel)
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchend', handleTouchEnd)
+    }
+  }, [currentSection, isScrolling, scrollToSection])
+
+  // Intersection Observer to track current section
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = sectionsRef.current.indexOf(entry.target as HTMLDivElement)
+            if (index !== -1) {
+              setCurrentSection(index)
+            }
+          }
+        })
+      },
+      {
+        threshold: 0.5,
+      }
+    )
+
+    sectionsRef.current.forEach((section) => {
+      if (section) observer.observe(section)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
+  const sections = [
+    Hero,
+    Section2,
+    Section3,
+    Section4,
+    Section5,
+    Section6,
+    Section7,
+    Section8,
+    Section9,
+  ]
+
+  return (
+    <main className="relative">
+      <Navigation
+        currentSection={currentSection}
+        totalSections={totalSections}
+        onNavigate={scrollToSection}
+      />
+
+      {sections.map((Section, index) => (
+        <div
+          key={index}
+          ref={(el) => {
+            if (el) sectionsRef.current[index] = el
+          }}
+        >
+          <Section />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      ))}
+    </main>
+  )
 }
