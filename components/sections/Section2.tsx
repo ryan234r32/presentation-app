@@ -15,91 +15,87 @@ export default function Section2() {
   }, [])
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#4ECDC4] to-[#95E1D3] px-8">
-      <div className="max-w-7xl w-full mx-auto grid md:grid-cols-2 gap-12 items-center">
-        {/* Left side - Illustration */}
-        <motion.div
-          className="flex flex-col items-center justify-center space-y-8"
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
+    <section
+      className="relative h-screen w-full flex items-center justify-center px-8"
+      style={{
+        backgroundImage: `linear-gradient(rgba(78, 205, 196, 0.85), rgba(149, 225, 211, 0.85)),
+                          url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1920&q=80')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
+      <div className="max-w-5xl w-full mx-auto text-center">
+        {/* Title */}
+        <motion.h2
+          className="text-4xl md:text-5xl font-black text-white mb-20"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
+          style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.4)' }}
         >
-          <div className="text-9xl">🏃</div>
+          {content.section2.title}
+        </motion.h2>
 
-          {/* Time progress animation */}
-          <div className="w-full max-w-md bg-white rounded-lg p-6 shadow-xl">
-            <div className="flex justify-between items-center mb-4">
-              <motion.div
-                className="text-3xl font-bold text-gray-600"
-                initial={{ scale: 1 }}
-                animate={{ scale: progress > 50 ? 0.9 : 1 }}
-              >
-                {content.section2.timeProgress.start}
-              </motion.div>
-              <div className="text-2xl">→</div>
-              <motion.div
-                className="text-3xl font-bold text-[#FF6B35]"
-                initial={{ scale: 1 }}
-                animate={{ scale: progress > 50 ? 1.2 : 1 }}
-              >
-                {content.section2.timeProgress.end}
-              </motion.div>
-            </div>
-
-            <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-gradient-to-r from-[#4ECDC4] to-[#FF6B35]"
-                initial={{ width: '0%' }}
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: 2, ease: 'easeOut' }}
-              />
-            </div>
-
-            <p className="text-center mt-4 text-gray-600 font-medium">進步軌跡</p>
-          </div>
-
-          {/* Stopwatch icon */}
-          <div className="text-6xl">⏱️</div>
-        </motion.div>
-
-        {/* Right side - Story content */}
+        {/* Runner emoji */}
         <motion.div
-          className="space-y-6"
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          className="text-9xl mb-16"
+          initial={{ opacity: 0, scale: 0.5 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h2 className="text-5xl md:text-6xl font-black text-white mb-8">
-            {content.section2.title}
-          </h2>
+          🏃
+        </motion.div>
 
-          {content.section2.story.map((line, index) => (
-            <motion.p
-              key={index}
-              className="text-2xl md:text-3xl text-white/90 font-medium leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-            >
-              {line}
-            </motion.p>
-          ))}
-
-          {/* Alert card */}
+        {/* Time progress - Large display */}
+        <motion.div
+          className="flex items-center justify-center gap-12 mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           <motion.div
-            className="mt-8 bg-orange-100 border-l-4 border-[#FF6B35] p-6 rounded-r-lg"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.8 }}
+            className="text-7xl md:text-8xl font-black text-white"
+            initial={{ scale: 1 }}
+            animate={{ scale: progress > 50 ? 0.95 : 1 }}
+            style={{ textShadow: '4px 4px 8px rgba(0,0,0,0.5)' }}
           >
-            <p className="text-xl font-bold text-[#FF6B35] flex items-center gap-2">
-              ⚠️ {content.section2.alert}
-            </p>
+            {content.section2.timeProgress.start}
           </motion.div>
+
+          <div className="text-6xl text-white font-bold">→</div>
+
+          <motion.div
+            className="text-7xl md:text-8xl font-black text-[#FF6B35]"
+            initial={{ scale: 1 }}
+            animate={{ scale: progress > 50 ? 1.1 : 1 }}
+            style={{ textShadow: '4px 4px 8px rgba(0,0,0,0.5)' }}
+          >
+            {content.section2.timeProgress.end}
+          </motion.div>
+        </motion.div>
+
+        {/* Progress bar */}
+        <motion.div
+          className="max-w-3xl mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <div className="w-full h-6 bg-white/30 rounded-full overflow-hidden backdrop-blur-sm">
+            <motion.div
+              className="h-full bg-gradient-to-r from-white to-[#FF6B35]"
+              initial={{ width: '0%' }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 2, ease: 'easeOut' }}
+            />
+          </div>
+          <p className="text-2xl text-white font-bold mt-6" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+            進步的軌跡
+          </p>
         </motion.div>
       </div>
     </section>

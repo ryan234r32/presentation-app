@@ -30,7 +30,15 @@ export default function Section6() {
   const [startCounting, setStartCounting] = useState(false)
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#FF6B35] via-[#FFD23F] to-[#4ECDC4] px-8 py-16">
+    <section
+      className="relative h-screen w-full flex items-center justify-center px-8 py-16"
+      style={{
+        backgroundImage: `linear-gradient(rgba(255, 107, 53, 0.8), rgba(78, 205, 196, 0.8)),
+                          url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
       <div className="max-w-6xl w-full mx-auto">
         <motion.div
           className="text-center mb-16"

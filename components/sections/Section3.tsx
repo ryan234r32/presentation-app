@@ -8,7 +8,15 @@ export default function Section3() {
   const [flippedCard, setFlippedCard] = useState<number | null>(null)
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#FFD23F] to-[#FF6B35] px-8 py-16">
+    <section
+      className="relative h-screen w-full flex items-center justify-center px-8 py-16"
+      style={{
+        backgroundImage: `linear-gradient(rgba(255, 210, 63, 0.8), rgba(255, 107, 53, 0.8)),
+                          url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1920&q=80')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
       <div className="max-w-7xl w-full mx-auto">
         <motion.h2
           className="text-5xl md:text-6xl font-black text-white text-center mb-16"

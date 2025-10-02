@@ -8,7 +8,15 @@ export default function Section7() {
   const [expandedCard, setExpandedCard] = useState<number | null>(null)
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#4ECDC4] via-[#95E1D3] to-[#FFD23F] px-8 py-16">
+    <section
+      className="relative h-screen w-full flex items-center justify-center px-8 py-16"
+      style={{
+        backgroundImage: `linear-gradient(rgba(78, 205, 196, 0.85), rgba(255, 210, 63, 0.85)),
+                          url('https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1920&q=80')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
       <div className="max-w-7xl w-full mx-auto">
         <motion.h2
           className="text-5xl md:text-6xl font-black text-white text-center mb-16"

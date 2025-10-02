@@ -5,7 +5,15 @@ import { content } from '@/lib/content'
 
 export default function Section8() {
   return (
-    <section className="relative h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#2D3142] via-[#FF6B35] to-[#FFD23F] px-8 py-16">
+    <section
+      className="relative h-screen w-full flex items-center justify-center px-8 py-16"
+      style={{
+        backgroundImage: `linear-gradient(rgba(45, 49, 66, 0.9), rgba(255, 107, 53, 0.85)),
+                          url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1920&q=80')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
       <div className="max-w-6xl w-full mx-auto">
         <motion.div
           className="text-center mb-12"

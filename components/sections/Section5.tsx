@@ -14,7 +14,15 @@ export default function Section5() {
   }
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#2D3142] via-[#4ECDC4] to-[#95E1D3] px-8 py-16 overflow-hidden">
+    <section
+      className="relative h-screen w-full flex items-center justify-center px-8 py-16 overflow-hidden"
+      style={{
+        backgroundImage: `linear-gradient(rgba(45, 49, 66, 0.85), rgba(78, 205, 196, 0.85)),
+                          url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=80')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
       {/* Background game map elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 text-6xl">🗺️</div>
@@ -60,7 +68,10 @@ export default function Section5() {
                   >
                     <div className="text-8xl mb-4">{level.emoji}</div>
                     <div className="text-sm font-bold mb-2">關卡 {level.number}</div>
-                    <h3 className="text-3xl font-black mb-4">{level.title}</h3>
+                    <h3 className="text-3xl font-black mb-2">{level.title}</h3>
+                    {level.subtitle && (
+                      <p className="text-xl font-semibold mb-4 text-white/90">{level.subtitle}</p>
+                    )}
 
                     {/* Icons */}
                     <div className="flex justify-center gap-3 mb-4">

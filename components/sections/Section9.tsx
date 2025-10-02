@@ -29,7 +29,15 @@ export default function Section9() {
   }
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#2D3142] via-[#4ECDC4] to-[#95E1D3] px-8 py-16 overflow-hidden">
+    <section
+      className="relative h-screen w-full flex items-center justify-center px-8 py-16 overflow-hidden"
+      style={{
+        backgroundImage: `linear-gradient(rgba(45, 49, 66, 0.85), rgba(78, 205, 196, 0.8)),
+                          url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1920&q=80')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
       {/* World map background */}
       <div className="absolute inset-0 opacity-10">
         <div className="text-9xl absolute top-20 left-10">🌍</div>
