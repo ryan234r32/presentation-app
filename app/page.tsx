@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import Navigation from '@/components/Navigation'
 import Hero from '@/components/sections/Hero'
 import Section2 from '@/components/sections/Section2'
+import Section2_2 from '@/components/sections/Section2_2'
 import Section3 from '@/components/sections/Section3'
 import Section4 from '@/components/sections/Section4'
 import Section5 from '@/components/sections/Section5'
@@ -16,7 +17,7 @@ export default function Home() {
   const [currentSection, setCurrentSection] = useState(0)
   const [isScrolling, setIsScrolling] = useState(false)
   const sectionsRef = useRef<HTMLDivElement[]>([])
-  const totalSections = 9
+  const totalSections = 10
 
   // Smooth scroll to section
   const scrollToSection = useCallback((index: number) => {
@@ -127,6 +128,7 @@ export default function Home() {
   const sections = [
     Hero,
     Section2,
+    Section2_2,
     Section3,
     Section4,
     Section5,

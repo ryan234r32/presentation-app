@@ -8,8 +8,8 @@ export default function Section4() {
     <section
       className="relative h-screen w-full flex items-center justify-center px-8 py-16"
       style={{
-        backgroundImage: `linear-gradient(rgba(78, 205, 196, 0.85), rgba(149, 225, 211, 0.85)),
-                          url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80')`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+                          url('https://images.unsplash.com/photo-1562516155-e0c1ee44059b?w=1920&q=80')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}

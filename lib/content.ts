@@ -15,6 +15,10 @@ export const content = {
       end: "5:10"
     }
   },
+  section2_2: {
+    title: "意外的轉折",
+    subtitle: "受傷了"
+  },
   section3: {
     title: "困境中的成長",
     cards: [

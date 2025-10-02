@@ -11,7 +11,7 @@ export default function Section7() {
     <section
       className="relative h-screen w-full flex items-center justify-center px-8 py-16"
       style={{
-        backgroundImage: `linear-gradient(rgba(78, 205, 196, 0.85), rgba(255, 210, 63, 0.85)),
+        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)),
                           url('https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1920&q=80')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
